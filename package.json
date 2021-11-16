@@ -1,0 +1,28 @@
+{
+  "name": "car-server",
+  "version": "1.0.0",
+  "description": "car-server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ZARD0520/car-server.git"
+  },
+  "author": "ZARD",
+  "license": "ISC",
+  "dependencies": {
+    "blueimp-md5": "^2.18.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-jwt": "^6.1.0",
+    "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.7"
+  },
+  "bugs": {
+    "url": "https://github.com/ZARD0520/car-server/issues"
+  },
+  "homepage": "https://github.com/ZARD0520/car-server#readme"
+}
