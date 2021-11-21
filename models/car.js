@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
-mongoose.connect('mongodb://localhost/zard',{useMongooClient:true})
+mongoose.connect('mongodb://localhost/car',{useMongooClient:true})
 
 var carSchema = new Schema({
     carNum:{
@@ -10,6 +10,14 @@ var carSchema = new Schema({
     },
     username:{
         type:String,
+        require:true
+    },
+    status:{
+        type:Boolean,
+        require:true
+    },
+    isLock:{
+        type:Boolean,
         require:true
     }
 })

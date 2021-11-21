@@ -2,7 +2,7 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
-mongoose.connect('mongodb://localhost/zard',{useMongooClient:true})
+mongoose.connect('mongodb://localhost/car',{useMongooClient:true})
 
 var adminSchema = new Schema({
     username:{

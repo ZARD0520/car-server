@@ -10,7 +10,11 @@ var expressJwt = require('express-jwt')
 var cors = require('cors')
 
 //各路由加载
-
+const adminRouter = require('./routes/getAdmin')
+const userRouter = require('./routes/getUser')
+const parkingRouter = require('./routes/getParking')
+const historyRouter = require('./routes/getHistory')
+const dealWechatRouter = require('./routes/dealWithWechat')
 
 // 创建express对象
 var app = express()
@@ -42,6 +46,11 @@ app.use(function(req,res,next){
 })
 
 //路由挂载
+app.use(adminRouter)
+app.use(userRouter)
+app.use(parkingRouter)
+app.use(historyRouter)
+app.use(dealWechatRouter)
 
 //404配置
 app.use(function(err,req,res,next){
