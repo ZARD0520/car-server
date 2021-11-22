@@ -17,4 +17,4 @@ var historySchema = new Schema({
 })
 
 //导出模型
-module.exports = mongoose.model('History',historySchema)
+module.exports = mongoose.model('history',historySchema)

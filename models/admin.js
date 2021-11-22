@@ -20,6 +20,6 @@ var adminSchema = new Schema({
 })
 
 //导出模型
-module.exports = mongoose.model('Admin',adminSchema)
+module.exports = mongoose.model('admin',adminSchema)
 
 

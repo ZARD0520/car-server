@@ -23,4 +23,4 @@ var carSchema = new Schema({
 })
 
 //导出模型
-module.exports = mongoose.model('Car',carSchema)
+module.exports = mongoose.model('car',carSchema)

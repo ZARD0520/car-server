@@ -1,10 +1,10 @@
 var express= require('express')
-var Parking = require('../models/parking')
+var parking = require('../models/parking')
 
 var router = express.Router()
 
 router.post('/getParking',function(req,res){
-    Parking.find(function(err,data){
+    parking.find(function(err,data){
         if(err){
             return res.status(500).json({
                 success:false,

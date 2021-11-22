@@ -21,4 +21,4 @@ var parkingSchema = new Schema({
 })
 
 //导出模型
-module.exports = mongoose.model('Parking',parkingSchema)
+module.exports = mongoose.model('parking',parkingSchema)

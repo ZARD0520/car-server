@@ -31,7 +31,7 @@ var userSchema = new Schema({
 })
 
 //导出模型
-module.exports = mongoose.model('User',userSchema)
+module.exports = mongoose.model('user',userSchema)
 
 
 
