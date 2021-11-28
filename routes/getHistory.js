@@ -28,7 +28,7 @@ router.post('/getHistory',function(req,res){
 // 今日缴费记录
 router.post('/getToday',function(req,res){
     var body = req.body
-    History.findOne({date:body.date},function(err,data){
+    History.find({date:body.date},function(err,data){
         if(err){
             return res.status(500).json({
                 success:false,

@@ -12,7 +12,7 @@ var historySchema = new Schema({
         carNum:String,
         price:String,
         hasPay:Boolean,
-        payTime:Date
+        payTime:String
     }]
 })
 
