@@ -10,7 +10,7 @@ router.post('/loginAdmin',function(req,res){
     //获取表单数据、查询数据库用户密码是否正确、响应数据
     var body = req.body
     Admin.findOne({
-        username:body.username,
+        user:body.user,
         password:md5(md5(body.password))
     },function(err,admin){
         if(err){
@@ -27,7 +27,7 @@ router.post('/loginAdmin',function(req,res){
             })
         }
         //如果用户存在，则成功登录，记录一个登录态
-        settoken.setToken(admin.username,admin.password).then((data)=>{
+        settoken.setToken(admin.user,admin.password).then((data)=>{
             var username = admin.username
             return res.status(200).json({
                 err_code:0,
@@ -49,7 +49,7 @@ router.post('/registerAdmin',function(req,res){
             {
                 phone:body.phone
             },{
-                username:body.username
+                user:body.user
             }
         ]
     },function(err,data){

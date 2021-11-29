@@ -5,7 +5,7 @@ var Schema = mongoose.Schema
 mongoose.connect('mongodb://localhost/car',{useMongooClient:true})
 
 var adminSchema = new Schema({
-    username:{
+    user:{
         type:String,
         require:true
     },
@@ -14,7 +14,7 @@ var adminSchema = new Schema({
         require:true
     },
     phone:{
-        type:Number,
+        type:String,
         require:true
     }
 })
