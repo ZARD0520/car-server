@@ -1,6 +1,7 @@
 var express= require('express')
 var md5 = require('blueimp-md5')
 var User = require('../models/user')
+var Car = require('../models/car')
 var settoken = require('../token/token_vertify')
 
 var router = express.Router()
@@ -42,10 +43,10 @@ router.post('/loginUser',function(req,res){
 
 
 // 注册请求
-router.post('/registerUser',function(req,res){
+router.post('/registerUser',async function(req,res){
     //获取表单提交的数据、操作数据库、判断用户是否存在、响应
     var body = req.body
-    User.findOne({
+    await User.findOne({
         $or:[
             {
                 phone:body.phone
@@ -66,32 +67,45 @@ router.post('/registerUser',function(req,res){
                 message:'用户名或手机号已经存在'
             })
         }
-        //生成随机数
-        var random = Math.round(Math.random()*99+1)
         //对密码进行md5加密
         body.password = md5(md5(body.password))
-        body.nickname = '无名氏'+random
-        new User(body).save(function(err,user){
-            if(err){
-                return res.status(500).json({
-                    err_code:500,
-                    message:'Server error'
-                })
-            }
+    })
 
-            //该方法接收一个对象作为参数，会自动把对象转为字符串再发送给浏览器
-            res.status(200).json({
-                err_code:0,
-                message:'注册成功'
+    await new User(body).save(function(err,user){
+        if(err){
+            return res.status(500).json({
+                err_code:500,
+                message:'Server error'
             })
-        })
+        }
+    })
+
+    //创建car数据对象
+    let carParams = {
+        username:body.username,
+        carNum:body.carNum
+    }
+
+    await new Car(carParams).save(function(err,car){
+        if(err){
+            return res.status(500).json({
+                err_code:500,
+                message:'Server error'
+            })
+        }
+    })
+
+    //该方法接收一个对象作为参数，会自动把对象转为字符串再发送给浏览器
+    res.status(200).json({
+        err_code:0,
+        message:'注册成功'
     })
 })
 
 
 //个人信息请求
-router.get('/profile',function(req,res){
-    var username = req.query.user
+router.post('/profile',function(req,res){
+    var username = req.username
     User.findOne({
         username
     },function(err,data){

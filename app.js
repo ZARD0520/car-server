@@ -15,6 +15,8 @@ const userRouter = require('./routes/getUser')
 const parkingRouter = require('./routes/getParking')
 const historyRouter = require('./routes/getHistory')
 const dealWechatRouter = require('./routes/dealWithWechat')
+const dealRaspiRouter = require('./routes/dealWithRaspi')
+const paymentWithWechat = require('./routes/paymentWithWechat')
 
 // 创建express对象
 var app = express()
@@ -51,6 +53,8 @@ app.use(userRouter)
 app.use(parkingRouter)
 app.use(historyRouter)
 app.use(dealWechatRouter)
+app.use(dealRaspiRouter)
+app.use(paymentWithWechat)
 
 //404配置
 app.use(function(err,req,res,next){

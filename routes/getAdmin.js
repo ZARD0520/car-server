@@ -28,7 +28,7 @@ router.post('/loginAdmin',function(req,res){
         }
         //如果用户存在，则成功登录，记录一个登录态
         settoken.setToken(admin.user,admin.password).then((data)=>{
-            var username = admin.username
+            var username = admin.user
             return res.status(200).json({
                 err_code:0,
                 message:'登录成功',

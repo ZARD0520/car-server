@@ -26,7 +26,8 @@ var userSchema = new Schema({
     },
     isLock:{
         type:Boolean,
-        require:true
+        require:true,
+        default:false
     }
 })
 

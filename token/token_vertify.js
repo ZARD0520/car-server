@@ -14,7 +14,14 @@ exports.setToken = function(username,id){
 
 exports.verToken = function(token){
     return new Promise((resolve,reject)=>{
-        var info = jwt.verify(token.split(' ')[1],signkey)
+        var info = jwt.verify(token.split(',')[1],signkey,
+            function(err,data){
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log(data);
+                }
+            })
         console.log(info)
         resolve(info)
     })

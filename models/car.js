@@ -14,11 +14,18 @@ var carSchema = new Schema({
     },
     status:{
         type:Boolean,
-        require:true
+        require:true,
+        default:false
     },
     isLock:{
         type:Boolean,
-        require:true
+        require:true,
+        default:false
+    },
+    price:{
+        type:Number,
+        require:true,
+        default:0
     }
 })
 
