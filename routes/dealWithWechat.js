@@ -38,7 +38,7 @@ router.post('/getLockStatus',async function(req,res){
                 message:err.message
             })
         }
-        if(!car){
+        if(!data){
             return res.status(200).json({
                 err_code:1,
                 message:'车辆不在停车场'
@@ -88,14 +88,14 @@ router.post('/setLock',async function(req,res){
             })
         }
          //如果不存在该车辆
-        if(!user){
+        if(!car){
             return res.status(200).json({
                 err_code:1,
                 message:'车辆不存在，锁定失败'
             })
         }
         return res.status(200).json({
-            err_code:1,
+            err_code:0,
             message:'更新成功',
             data:car
         })
@@ -136,14 +136,14 @@ router.post('/setUnLock',async function(req,res){
             })
         }
          //如果不存在该车辆
-        if(!user){
+        if(!car){
             return res.status(200).json({
                 err_code:1,
                 message:'车辆不存在，锁定失败'
             })
         }
         return res.status(200).json({
-            err_code:1,
+            err_code:0,
             message:'更新成功',
             data:car
         })

@@ -105,7 +105,7 @@ router.post('/registerUser',async function(req,res){
 
 //个人信息请求
 router.post('/profile',function(req,res){
-    var username = req.username
+    var username = req.body.username
     User.findOne({
         username
     },function(err,data){

@@ -34,6 +34,8 @@ router.post('/getPayment',function(req,res){
 router.post('/payPrice',async function(req,res){
     var body = req.body
     var obj
+    var date = new Date()
+    var time = date.getTime().toString()
 
     // car表清零
     await Car.findOneAndUpdate({
@@ -55,42 +57,18 @@ router.post('/payPrice',async function(req,res){
         }
     })
 
-//-----------------------------------------------
-    // history表改变hasPay
-    /*
-    await History.find(function(err,data){
-        if(err){
-            return res.status(500).json({
-                success:false,
-                message:'server error'
-            })
-        } else if(!data){
-            return res.status(200).json({
-                err_code:1,
-                message:'无数据'
-            })
-        }
-        obj = data
-    })
-    
-    // 遍历更新数据
-    obj.forEach((item)=>{
-        item.contentList.forEach((cItem)=>{
-            if(cItem.carNum === body.carNum){
-                cItem.hasPay = true
-            }
-        })
-    })
 
-    // 更新整个history表
-    */
-//-----------------------------------------------
-
-    // 方法二，利用updateMany
+    // updateMany
     History.updateMany({
         'contentList.carNum':body.carNum
-    },{ $set:{ 'contentList.hasPay':true } },function(err,data){
+    },{ 
+        '$set':{ 
+            'contentList.$.hasPay':true,
+            'contentList.$.payTime':time
+        } 
+    },function(err,data){
         if(err){
+            console.log(err);
             return res.status(500).json({
                 success:false,
                 message:'server error'
@@ -112,11 +90,12 @@ router.post('/payPrice',async function(req,res){
 
 
 // 历史缴纳记录(遍历获取对应数据)
-router.post('/getHistoryPayment',function(req,res){
+router.post('/getHistoryPayment',async function(req,res){
     var body = req.body
-    var obj
+    var obj={}
+    var carNum
     var historyPay=[]
-    History.find(function(err,data){
+    await History.find(function(err,data){
         if(err){
             return res.status(500).json({
                 success:false,
@@ -128,16 +107,33 @@ router.post('/getHistoryPayment',function(req,res){
                 message:'无数据'
             })
         }
-        obj = data
+        obj = JSON.parse(JSON.stringify(data))
     })
-    
-    obj.forEach((item)=>{
-        item.contentList.forEach((cItem)=>{
-            if(cItem.carNum === body.carNum){
-                let objItem = cItem
-                objItem.date = item.date
-                historyPay.push(objItem)
-            }
+
+    await Car.find({
+       username:body.username     
+    },function(err,data){
+        if(err){
+            return res.status(500).json({
+                success:false,
+                message:'server error'
+            })
+        }
+        if(!data){
+            return res.status(200).json({
+                err_code:1,
+                message:'找不到该车辆'
+            })
+        }
+        carNum = data[0].carNum
+        obj.forEach((item)=>{
+            item.contentList.forEach((cItem)=>{
+                cItem['date'] = item.date
+                if(cItem.carNum === carNum){
+                    var objItem = cItem
+                    historyPay.push(objItem)
+                }
+            })
         })
     })
 
